@@ -4,7 +4,7 @@ use Laravel\Jetstream\Features;
 
 return [
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Jetstream Stack
     |--------------------------------------------------------------------------
@@ -15,9 +15,9 @@ return [
     |
     */
 
-    'stack' => 'livewire',
+  'stack' => 'livewire',
 
-    /*
+  /*
     |--------------------------------------------------------------------------
     | Features
     |--------------------------------------------------------------------------
@@ -28,10 +28,10 @@ return [
     |
     */
 
-    'features' => [
-        // Features::profilePhotos(),
-        // Features::api(),
-        // Features::teams(),
-    ],
+  'features' => [
+    Features::profilePhotos(),
+    // Features::api(),
+    // Features::teams(),
+  ],
 
 ];
