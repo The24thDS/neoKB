@@ -22,6 +22,9 @@
           <x-jet-nav-link href="{{ route('admin.domains') }}" :active="request()->routeIs('admin.domains')">
             {{ __('general.title.domains_management') }}
           </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('admin.action-logs') }}" :active="request()->routeIs('admin.action-logs')">
+            {{ __('general.title.action_logs') }}
+          </x-jet-nav-link>
           @endadmin
         </div>
       </div>
@@ -135,6 +138,18 @@
       <x-jet-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
         {{ __('Dashboard') }}
       </x-jet-responsive-nav-link>
+      @admin
+      <x-jet-responsive-nav-link href="{{ route('admin.users') }}" :active="request()->routeIs('admin.users')">
+        {{ __('general.title.users_management') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="{{ route('admin.domains') }}" :active="request()->routeIs('admin.domains')">
+        {{ __('general.title.domains_management') }}
+      </x-jet-responsive-nav-link>
+      <x-jet-responsive-nav-link href="{{ route('admin.action-logs') }}"
+        :active="request()->routeIs('admin.action-logs')">
+        {{ __('general.title.action_logs') }}
+      </x-jet-responsive-nav-link>
+      @endadmin
     </div>
 
     <!-- Responsive Settings Options -->
