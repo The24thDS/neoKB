@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
@@ -16,6 +18,8 @@ class User extends Authenticatable
   use HasProfilePhoto;
   use Notifiable;
   use TwoFactorAuthenticatable;
+  use Loggable;
+  use SoftDeletes;
 
   /**
    * The attributes that are mass assignable.
@@ -62,5 +66,10 @@ class User extends Authenticatable
   protected function defaultProfilePhotoUrl()
   {
     return 'https://robohash.org/' . urlencode($this->name) . '?bgset=bg2';
+  }
+
+  public function getLogActionModelName(): string
+  {
+    return $this->name;
   }
 }
