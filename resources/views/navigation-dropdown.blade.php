@@ -19,6 +19,9 @@
           <x-jet-nav-link href="{{ route('admin.users') }}" :active="request()->routeIs('admin.users')">
             {{ __('general.title.users_management') }}
           </x-jet-nav-link>
+          <x-jet-nav-link href="{{ route('admin.domains') }}" :active="request()->routeIs('admin.domains')">
+            {{ __('general.title.domains_management') }}
+          </x-jet-nav-link>
           @endadmin
         </div>
       </div>
