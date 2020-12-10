@@ -5,7 +5,8 @@ return [
   'user' => 'User',
 
   'title' => [
-    'users_management' => 'Users Management'
+    'users_management' => 'Users Management',
+    'domains_management' => 'Domains Management',
   ],
 
   'field' => [
