@@ -17,6 +17,10 @@ return [
     'role' => 'Role',
     'action' => 'Action',
     'user' => 'User',
+    'is_admin' => 'Admin',
+    'no' => 'No',
+    'yes' => 'Yes',
+    'date' => 'Date',
   ],
 
   'text' => [
