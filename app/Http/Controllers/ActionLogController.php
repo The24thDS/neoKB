@@ -14,7 +14,7 @@ class ActionLogController extends Controller
    */
   public function index()
   {
-    $actionLogs = ActionLog::paginate();
+    $actionLogs = ActionLog::latest()->paginate(9);
 
     return view('admin.action-logs', compact('actionLogs'));
   }

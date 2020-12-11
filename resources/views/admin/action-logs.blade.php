@@ -11,33 +11,33 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-2">
-        <table class="mx-auto my-2">
+      <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4">
+        <table class="mx-auto my-2 w-full text-left">
           <thead>
-            <tr>
-              <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.field.date') }}</th>
-              <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.field.user') }}</th>
-              <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.field.action') }}</th>
-              <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.text.from') }}</th>
-              <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.text.to') }}</th>
+            <tr class='border-b border-white'>
+              <th class="bg-teal-300 p-1 px-2">{{ __('general.field.date') }}</th>
+              <th class="bg-teal-300 p-1 px-2">{{ __('general.field.user') }}</th>
+              <th class="bg-teal-300 p-1 px-2">{{ __('general.field.action') }}</th>
+              <th class="bg-teal-300 p-1 px-2">{{ __('general.text.from') }}</th>
+              <th class="bg-teal-300 p-1 px-2">{{ __('general.text.to') }}</th>
             </tr>
           </thead>
           <tbody>
             @foreach ($actionLogs as $actionLog)
-              <tr>
-                <td class="px-4">{{ $actionLog->created_at }}</td>
-                <td class="px-4">{{ $actionLog->user->name ?? 'Application' }}</td>
-                <td class="px-4">{{ $actionLog->type }} {{ __("general.model.$actionLog->model_type") }}
+              <tr class='border-b {{ $loop->iteration % 2 ? 'bg-teal-100' : 'bg-teal-200' }} border-white'>
+                <td class="p-4">{{ $actionLog->created_at->setTimezone('Europe/Bucharest') }}</td>
+                <td class="p-4">{{ $actionLog->user->name ?? 'Application' }}</td>
+                <td class="p-4">{{ $actionLog->type }} {{ __("general.model.$actionLog->model_type") }}
                   {{ $actionLog->model ? $actionLog->model->getLogActionModelName() : 'error' }}
                 </td>
-                <td class="px-4">
+                <td class="p-4">
                   <ul>
                     @foreach (((array) json_decode($actionLog->before_attributes)) as $key => $value)
                       <li>{{ __("general.field.$key") }}: {{ $value }}</li>
                     @endforeach
                   </ul>
                 </td>
-                <td class="px-4">
+                <td class="p-4">
                   <ul>
                     @foreach (((array) json_decode($actionLog->after_attributes)) as $key => $value)
                       <li>{{ __("general.field.$key") }}: {{ $value }}</li>

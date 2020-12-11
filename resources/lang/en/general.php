@@ -20,6 +20,7 @@ return [
     'is_admin' => 'Admin',
     'no' => 'No',
     'yes' => 'Yes',
+    'date' => 'Date',
   ],
 
   'text' => [
