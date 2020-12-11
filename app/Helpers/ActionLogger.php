@@ -97,6 +97,12 @@ class ActionLogger
         continue;
       }
 
+      if ($key === 'is_admin') {
+        $beforeAttributes[$key] = $tempVal === 1 ? __('general.field.yes') : __('general.field.no');
+        $afterAttributes[$key] = $value === 1 ? __('general.field.yes') : __('general.field.no');
+        continue;
+      }
+
       if (Str::of($key)->endsWith('_id')) {
         $model = Str::of($key)->replace('_id', '')->camel()->ucfirst()->__toString();
 

@@ -15,6 +15,7 @@
         <table class="mx-auto my-2">
           <thead>
             <tr>
+              <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.field.date') }}</th>
               <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.field.user') }}</th>
               <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.field.action') }}</th>
               <th class="bg-blue-100 p-1 px-2 border-r border-gray-600">{{ __('general.text.from') }}</th>
@@ -24,6 +25,7 @@
           <tbody>
             @foreach ($actionLogs as $actionLog)
               <tr>
+                <td class="px-4">{{ $actionLog->created_at }}</td>
                 <td class="px-4">{{ $actionLog->user->name ?? 'Application' }}</td>
                 <td class="px-4">{{ $actionLog->type }} {{ __("general.model.$actionLog->model_type") }}
                   {{ $actionLog->model ? $actionLog->model->getLogActionModelName() : 'error' }}
