@@ -17,6 +17,11 @@ class Domain extends Model
     'name'
   ];
 
+  public function articles()
+  {
+    return $this->belongsToMany(Article::class, 'articles_domains');
+  }
+
   public function getLogActionModelName(): string
   {
     return $this->name;

@@ -63,6 +63,11 @@ class User extends Authenticatable
     'profile_photo_url',
   ];
 
+  public function articles()
+  {
+    return $this->hasMany(Article::class);
+  }
+
   protected function defaultProfilePhotoUrl()
   {
     return 'https://robohash.org/' . urlencode($this->name) . '?bgset=bg2';
