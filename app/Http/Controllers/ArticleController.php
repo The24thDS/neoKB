@@ -16,7 +16,9 @@ class ArticleController extends Controller
    */
   public function index()
   {
-    //
+    $articles = Article::latest()->paginate(6);
+
+    return view('feed', compact('articles'));
   }
 
   /**
@@ -39,6 +41,7 @@ class ArticleController extends Controller
   public function store(CreateArticleRequest $request)
   {
     $data = $request->validated();
+    $data['content'] = join('', array_map(fn ($line) => "<p>$line</p>", preg_split('/\n|\r\n?/', $data['content'])));
     $article = new Article([
       'title' => $data['title'],
       'content' => $data['content'],
