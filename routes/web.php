@@ -19,13 +19,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return Redirect::to('dashboard');
+  return Redirect::to('feed');
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-  Route::get('/dashboard', function () {
-    return view('dashboard');
-  })->name('dashboard');
+  Route::get('/feed', [ArticleController::class, 'index'])->name('feed');
   Route::resource('article', ArticleController::class);
 });
 
