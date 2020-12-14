@@ -8,6 +8,7 @@ return [
     'users_management' => 'Users Management',
     'domains_management' => 'Domains Management',
     'action_logs' => 'Action Logs',
+    'new_article' => 'New Article',
   ],
 
   'field' => [

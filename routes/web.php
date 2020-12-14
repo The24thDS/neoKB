@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ActionLogController;
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Redirect;
@@ -21,9 +22,12 @@ Route::get('/', function () {
   return Redirect::to('dashboard');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-  return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+  Route::get('/dashboard', function () {
+    return view('dashboard');
+  })->name('dashboard');
+  Route::resource('article', ArticleController::class);
+});
 
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
   Route::get('users', [UsersController::class, 'index'])->name('users');
