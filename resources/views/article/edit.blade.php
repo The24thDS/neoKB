@@ -29,7 +29,7 @@
           <x-jet-input-error for="domains" class="mt-2 block" />
           <x-jet-button type="submit" class="mt-2">Save</x-jet-button>
           <a href="{{ route('article.show', ['article' => $article->id]) }}">
-            <x-jet-secondary-button type="submit" class="mt-2 ml-2">Cancel</x-jet-secondary-button>
+            <x-jet-secondary-button type="button" class="mt-2 ml-2">Cancel</x-jet-secondary-button>
           </a>
         </form>
       </div>
