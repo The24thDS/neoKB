@@ -6,6 +6,7 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Models\Article;
 use App\Models\Domain;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class ArticleController extends Controller
 {
@@ -49,6 +50,8 @@ class ArticleController extends Controller
     $article->user_id = auth()->user()->id;
     $article->save();
     $article->domains()->attach($data['domains']);
+
+    return redirect()->route('article.show', ['article' => $article->id]);
   }
 
   /**
@@ -59,7 +62,7 @@ class ArticleController extends Controller
    */
   public function show(Article $article)
   {
-    //
+    return view('article.show', compact('article'));
   }
 
   /**
