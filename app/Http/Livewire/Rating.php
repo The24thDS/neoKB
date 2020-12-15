@@ -25,6 +25,10 @@ class Rating extends Component
 
   public function upvote()
   {
+    if ($this->downvoted) {
+      $this->rating = $this->rating + 1;
+    }
+
     $this->article->upvote();
     $this->updateStatus();
 
@@ -37,6 +41,10 @@ class Rating extends Component
 
   public function downvote()
   {
+    if ($this->upvoted) {
+      $this->rating = $this->rating - 1;
+    }
+
     $this->article->downvote();
     $this->updateStatus();
 
