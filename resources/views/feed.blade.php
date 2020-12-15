@@ -18,8 +18,13 @@
           <div
             class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 mt-4 flex flex-wrap transition duration-500 ease-in-out transform hover:scale-110 z-10"
             style="width: 100%; min-height: 25vmin">
-            <a href="{{ route('article.show', ['article' => $article->id]) }}"
-              class="my-2 text-lg font-semibold mb-4 w-full cursor-pointer hover:underline">{{ $article->title }}</a>
+            <div class="flex space-between w-full items-start">
+              <a href="{{ route('article.show', ['article' => $article->id]) }}"
+                class="my-2 text-lg font-semibold mb-4 w-full cursor-pointer hover:underline">
+                {{ $article->title }}
+              </a>
+              <livewire:rating :article="$article" />
+            </div>
             <p class="text-gray-500 mb-2 text-sm w-full">posted on {{ $article->created_at->format('j F Y') }} by
               {{ $article->author->name }}
             </p>

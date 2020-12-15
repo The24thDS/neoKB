@@ -68,6 +68,16 @@ class User extends Authenticatable
     return $this->hasMany(Article::class);
   }
 
+  public function upvotedArticles()
+  {
+    return $this->belongsToMany(Article::class, 'articles_upvotes');
+  }
+
+  public function downvotedArticles()
+  {
+    return $this->belongsToMany(Article::class, 'articles_downvotes');
+  }
+
   protected function defaultProfilePhotoUrl()
   {
     return 'https://robohash.org/' . urlencode($this->name) . '?bgset=bg2';
