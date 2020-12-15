@@ -13,7 +13,7 @@
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
       <x-jet-button><a href="{{ route('article.create') }}">New article</a></x-jet-button>
 
-      <div class="w-full mb-6 flex-wrap grid grid-cols-3 gap-6">
+      <div class="w-full mb-6 grid grid-cols-3 gap-6">
         @forelse ($articles as $article)
           <div
             class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 mt-4 flex flex-wrap transition duration-500 ease-in-out transform hover:scale-110 z-10"
