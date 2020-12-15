@@ -12,6 +12,14 @@
 
   <div class="py-12 article_page">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+      @can('update', $article)
+        <a href="{{ route('article.edit', ['article' => $article->id]) }}">
+          <x-jet-button class="mb-4">
+            Edit article
+          </x-jet-button>
+        </a>
+      @endcan
+
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 grid grid-cols-5">
         <article class="col-span-4 leading-7 px-4">
           {!! $article->content !!}

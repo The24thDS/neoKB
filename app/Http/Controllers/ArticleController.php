@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Domain;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Route;
 
 class ArticleController extends Controller
 {
@@ -42,12 +42,11 @@ class ArticleController extends Controller
   public function store(CreateArticleRequest $request)
   {
     $data = $request->validated();
-    $data['content'] = join('', array_map(fn ($line) => "<p>$line</p>", preg_split('/\n|\r\n?/', $data['content'])));
     $article = new Article([
       'title' => $data['title'],
-      'content' => $data['content'],
+      'user_id' => auth()->user()->id,
     ]);
-    $article->user_id = auth()->user()->id;
+    $article->setContent($data['content']);
     $article->save();
     $article->domains()->attach($data['domains']);
 
@@ -73,7 +72,9 @@ class ArticleController extends Controller
    */
   public function edit(Article $article)
   {
-    //
+    $this->authorize('update', $article);
+    $domains = Domain::all()->mapWithKeys(fn ($domain) => [$domain->name => $domain->id]);
+    return view('article.edit', compact('article', 'domains'));
   }
 
   /**
@@ -83,9 +84,18 @@ class ArticleController extends Controller
    * @param  \App\Models\Article  $article
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Article $article)
+  public function update(UpdateArticleRequest $request, Article $article)
   {
-    //
+    $data = $request->validated();
+    $article->fill([
+      'title' => $data['title']
+    ]);
+    $article->setContent($data['content']);
+    $article->save();
+    $article->domains()->detach($article->domains);
+    $article->domains()->attach($data['domains']);
+
+    return redirect()->route('article.show', ['article' => $article->id]);
   }
 
   /**
