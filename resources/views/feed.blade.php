@@ -11,7 +11,9 @@
 
   <div class="py-12">
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-      <x-jet-button><a href="{{ route('article.create') }}">New article</a></x-jet-button>
+      <a href="{{ route('article.create') }}">
+        <x-jet-button>New article</x-jet-button>
+      </a>
 
       <div class="w-full mb-6 grid grid-cols-3 gap-6">
         @forelse ($articles as $article)

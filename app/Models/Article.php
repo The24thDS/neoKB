@@ -14,9 +14,25 @@ class Article extends Model
     'user_id', 'approved', 'approved_by'
   ];
 
+  public function setContent($content)
+  {
+    $this->content =
+      join('', array_map(fn ($line) => "<p>$line</p>", preg_split('/\n|\r\n?/', $content)));
+  }
+
+  public function getCleanContent()
+  {
+    return str_replace('</p>', "\r\n", str_replace('<p>', '', $this->content));
+  }
+
   public function domains()
   {
     return $this->belongsToMany(Domain::class, 'articles_domains');
+  }
+
+  public function domainsOptionsData()
+  {
+    return $this->domains->mapWithKeys(fn ($domain) => [$domain->name => $domain->id]);
   }
 
   public function upvotes()

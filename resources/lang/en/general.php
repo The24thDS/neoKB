@@ -9,6 +9,7 @@ return [
     'domains_management' => 'Domains Management',
     'action_logs' => 'Action Logs',
     'new_article' => 'New Article',
+    'update_article' => 'Update Article',
   ],
 
   'field' => [
