@@ -26,15 +26,25 @@ class Rating extends Component
   public function upvote()
   {
     $this->article->upvote();
-    $this->updateRating();
     $this->updateStatus();
+
+    if ($this->upvoted) {
+      $this->rating = $this->rating + 1;
+    } else {
+      $this->rating = $this->rating - 1;
+    }
   }
 
   public function downvote()
   {
     $this->article->downvote();
-    $this->updateRating();
     $this->updateStatus();
+
+    if ($this->downvoted) {
+      $this->rating = $this->rating - 1;
+    } else {
+      $this->rating = $this->rating + 1;
+    }
   }
 
   private function updateStatus()
