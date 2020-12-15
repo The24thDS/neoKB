@@ -7,6 +7,7 @@
     <h1 class="font-semibold text-xl text-gray-800 leading-tight">
       {{ $article->title }}
     </h1>
+    <livewire:rating :article="$article" />
   </x-slot>
 
   <div class="py-12 article_page">
