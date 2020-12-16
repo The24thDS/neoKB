@@ -12,6 +12,11 @@ class Search extends Component
 
   public $searchTerm;
 
+  public function updatingSearchTerm()
+  {
+    $this->resetPage();
+  }
+
   public function render()
   {
     $articles = $this->searchTerm ? Article::search($this->searchTerm)->paginate(5) : [];
