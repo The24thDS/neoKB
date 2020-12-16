@@ -17,6 +17,17 @@ class Domain extends Model
     'name'
   ];
 
+  public static function boot()
+  {
+    parent::boot();
+
+    static::saved(function ($model) {
+      $model->articles->filter(function ($item) {
+        return $item->shouldBeSearchable();
+      })->searchable();
+    });
+  }
+
   public function articles()
   {
     return $this->belongsToMany(Article::class, 'articles_domains');

@@ -6,7 +6,6 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Domain;
-use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -91,9 +90,9 @@ class ArticleController extends Controller
       'title' => $data['title']
     ]);
     $article->setContent($data['content']);
-    $article->save();
     $article->domains()->detach($article->domains);
     $article->domains()->attach($data['domains']);
+    $article->save();
 
     return redirect()->route('article.show', ['article' => $article->id]);
   }

@@ -31,6 +31,7 @@ return [
     'after' => 'After',
     'from' => 'From',
     'to' => 'To',
+    'no_items_found_matching' => 'No :items found matching this search term.'
   ],
 
   'model' => [
