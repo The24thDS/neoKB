@@ -1,8 +1,9 @@
-<div class="w-1/2 relative" x-data="{inputFocus: false, searchTerm: @entangle('searchTerm'), resultsFocus: false}">
-  <x-jet-input type="text" wire:model.debounce.500ms="searchTerm" class="w-full" x-on:focus="inputFocus=true"
-    x-on:blur.debounce.100ms="inputFocus=false" placeholder="Search" />
-  <ul x-show="resultsFocus || (inputFocus && !!searchTerm)" x-on:click="resultsFocus=true"
-    x-on:click.away="resultsFocus=false" x-transition:enter="transition ease-out duration-150"
+<div class="w-1/2 relative" x-data="{showDropdown: @entangle('showDropdown')}">
+  <x-jet-input type="text" wire:model.debounce.500ms="searchTerm" class="w-full"
+    x-on:focus="$wire.set('inputFocus', true)" x-on:blur.debounce.100ms="$wire.set('inputFocus', false)"
+    placeholder="Search" />
+  <ul x-show="showDropdown" x-on:click="$wire.set('resultsFocus', true)"
+    x-on:click.away="$wire.set('resultsFocus', false)" x-transition:enter="transition ease-out duration-150"
     x-transition:enter-start="opacity-0 transform -translate-y-2"
     x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-150"
     x-transition:leave-start="opacity-100 transform translate-y-0"
@@ -34,7 +35,7 @@
       @endif
     @endforelse
     <li class="my-2 mt-4">
-      {{ optional($articles)->links() }}
+      {{ optional($articles)->links('vendor.livewire.simple-tailwind') }}
     </li>
     <li class="flex justify-end mt-4">
       <a href="https://www.algolia.com">

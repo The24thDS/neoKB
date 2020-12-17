@@ -47,7 +47,7 @@
           <p>No articles available</p>
         @endforelse
       </div>
-      {{ $articles->links() }}
+      {{ $articles->links('vendor.pagination.tailwind') }}
     </div>
   </div>
 </x-app-layout>
