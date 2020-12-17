@@ -4,6 +4,8 @@ use App\Http\Controllers\ActionLogController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\DomainController;
 use App\Http\Controllers\UsersController;
+use App\Models\Article;
+use App\Models\ArticleEdits;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -24,7 +26,8 @@ Route::get('/', function () {
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
   Route::get('/feed', [ArticleController::class, 'index'])->name('feed');
-  Route::resource('article', ArticleController::class);
+  Route::resource('/article', ArticleController::class);
+  Route::get('/article/{article}/version/{version}', fn (Article $article, int $version) => view('article.version', ['article' => $article, 'articleEdit' => $article->edits->get($version - 1)]))->name('article.version');
 });
 
 Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {

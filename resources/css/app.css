@@ -29,3 +29,12 @@
 .article_page article p {
     text-indent: 25px;
 }
+
+.article_page .article_edits_dropdown {
+    display: none;
+}
+
+.article_page .article_edits:hover + .article_edits_dropdown,
+.article_page .article_edits_dropdown:hover {
+    display: block;
+}

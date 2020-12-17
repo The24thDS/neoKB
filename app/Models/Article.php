@@ -36,6 +36,11 @@ class Article extends Model
     return $this->domains->mapWithKeys(fn ($domain) => [$domain->name => $domain->id]);
   }
 
+  public function edits()
+  {
+    return $this->hasMany(ArticleEdits::class, 'article_id');
+  }
+
   public function upvotes()
   {
     return count($this->upvotedBy);
