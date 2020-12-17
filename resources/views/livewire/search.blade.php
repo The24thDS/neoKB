@@ -35,7 +35,7 @@
       @endif
     @endforelse
     <li class="my-2 mt-4">
-      {{ optional($articles)->links() }}
+      {{ optional($articles)->links('vendor.livewire.simple-tailwind') }}
     </li>
     <li class="flex justify-end mt-4">
       <a href="https://www.algolia.com">
