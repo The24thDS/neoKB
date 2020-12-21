@@ -56,5 +56,7 @@
       </div>
     </div>
   </div>
+  <link href="{{ asset('css/prism.css') }}" rel="stylesheet" />
+  <script src="{{ asset('js/prism.js') }}"></script>
 
 </x-app-layout>
