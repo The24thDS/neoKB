@@ -19,8 +19,9 @@
             value="{{ old('title') ?? '' }}" required />
           <x-jet-input-error for="title" class="mt-2 block" />
           <h3 class="mt-2">Content</h3>
-          <textarea class='form-input rounded-md shadow-sm mt-2 w-2/3 h-96 block' placeholder="Article content here"
-            id="content" name="content" required>{{ old('content') ?? '' }}</textarea>
+          <textarea id='editor' placeholder="Article content here" id="content" name="content" required>
+          {{ old('content') ?? '' }}
+          </textarea>
           <x-jet-input-error for="content" class="mt-2 block" />
           <h3 class="mt-2">Domains</h3>
           <x-select :options="$domains" multiple class='mt-2 block' name="domains[]" />
@@ -30,5 +31,56 @@
       </div>
     </div>
   </div>
+  <script src="{{ asset('js/ckeditor.js') }}"></script>
+  <script>
+    ClassicEditor
+      .create(document.querySelector('#editor'), {
+
+        toolbar: {
+          items: [
+            'heading',
+            '|',
+            'bold',
+            'italic',
+            'link',
+            'bulletedList',
+            'numberedList',
+            'fontSize',
+            '|',
+            'indent',
+            'outdent',
+            '|',
+            'code',
+            'codeBlock',
+            'blockQuote',
+            'insertTable',
+            'mediaEmbed',
+            'undo',
+            'redo'
+          ]
+        },
+        language: 'en',
+        table: {
+          contentToolbar: [
+            'tableColumn',
+            'tableRow',
+            'mergeTableCells'
+          ]
+        },
+        licenseKey: '',
+      })
+      .then(editor => {
+        window.editor = editor;
+      })
+      .catch(error => {
+        console.error('Oops, something went wrong!');
+        console.error(
+          'Please, report the following error on https://github.com/ckeditor/ckeditor5/issues with the build id and the error stack trace:'
+        );
+        console.warn('Build id: l1mhtp9eeaap-wvn8ayq9jzm0');
+        console.error(error);
+      });
+
+  </script>
 
 </x-app-layout>

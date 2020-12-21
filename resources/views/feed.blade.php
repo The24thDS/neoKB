@@ -34,7 +34,7 @@
               {{ $article->author->name }}
             </p>
             <article>
-              {!! strlen($article->content) > 100 ? substr($article->content, 0, 100) . ' ...' : $article->content !!}
+              {!! $article->excerpt !!}
             </article>
             <div class="self-end mt-2 w-full">
               @foreach ($article->domains as $domain)
@@ -50,4 +50,6 @@
       {{ $articles->links('vendor.pagination.tailwind') }}
     </div>
   </div>
+  <link href="{{ asset('css/prism.css') }}" rel="stylesheet" />
+  <script src="{{ asset('js/prism.js') }}"></script>
 </x-app-layout>

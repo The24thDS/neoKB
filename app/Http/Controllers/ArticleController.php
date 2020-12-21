@@ -43,11 +43,12 @@ class ArticleController extends Controller
     $data = $request->validated();
     $article = new Article([
       'title' => $data['title'],
+      'content' => $data['content'],
       'user_id' => auth()->user()->id,
     ]);
-    $article->setContent($data['content']);
     $article->save();
     $article->domains()->attach($data['domains']);
+    $article->searchable();
 
     return redirect()->route('article.show', ['article' => $article->id]);
   }
@@ -87,9 +88,9 @@ class ArticleController extends Controller
   {
     $data = $request->validated();
     $article->fill([
-      'title' => $data['title']
+      'title' => $data['title'],
+      'content' => $data['content'],
     ]);
-    $article->setContent($data['content']);
     $article->domains()->detach($article->domains);
     $article->domains()->attach($data['domains']);
     $article->save();

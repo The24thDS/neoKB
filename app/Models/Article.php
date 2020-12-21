@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use Stevebauman\Purify\Facades\Purify;
+use Illuminate\Support\Str;
 
 class Article extends Model
 {
@@ -15,15 +17,14 @@ class Article extends Model
     'user_id', 'approved', 'approved_by'
   ];
 
-  public function setContent($content)
-  {
-    $this->content =
-      join('', array_map(fn ($line) => "<p>$line</p>", preg_split('/\n|\r\n?/', $content)));
-  }
-
   public function getCleanContent()
   {
-    return str_replace('</p>', "\r\n", str_replace('<p>', '', $this->content));
+    return Purify::clean($this->content);
+  }
+
+  public function getExcerptAttribute()
+  {
+    return Purify::clean(Str::limit($this->content));
   }
 
   public function domains()
