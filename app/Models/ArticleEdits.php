@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Stevebauman\Purify\Facades\Purify;
 
 class ArticleEdits extends Model
 {
@@ -12,6 +13,6 @@ class ArticleEdits extends Model
 
   public function getCleanContent()
   {
-    return str_replace('</p>', "\r\n", str_replace('<p>', '', $this->content));
+    return Purify::clean($this->content);
   }
 }
