@@ -58,6 +58,7 @@
             @endforeach
           </div>
         </sidebar>
+        <livewire:add-comment-box :articleId="$article->id" />
       </div>
     </div>
   </div>

@@ -77,3 +77,10 @@ p code {
 article {
     max-width: 100%;
 }
+
+button:disabled {
+    opacity: 0.5;
+    background-color: gray;
+    color: black;
+    cursor: default;
+}
