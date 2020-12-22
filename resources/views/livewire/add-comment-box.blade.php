@@ -4,9 +4,19 @@
   <button type="submit" class="px-8 bg-blue-500 rounded text-white font-semibold shadow-xl hover:shadow-none text-xl"
     wire:click='save' :disabled="disabled">Post</button>
   <x-jet-input-error for="content" class="mt-2 w-full" />
-  @if (session()->has('comment_added'))
+  @if (session()->has('comment_added') && $success)
     <div class="mt-2 w-full text-green-500 text-lg font-semibold">
       {{ session('comment_added') }}
     </div>
   @endif
+  <script>
+    document.addEventListener('livewire:load', function() {
+      @this.on('commentAdded', () => {
+        setTimeout(() => {
+          @this.success = false;
+        }, 1000);
+      })
+    });
+
+  </script>
 </div>

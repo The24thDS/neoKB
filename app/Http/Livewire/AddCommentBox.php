@@ -10,6 +10,7 @@ class AddCommentBox extends Component
   public $articleId;
   public $content;
   public $postButtonDisabled = false;
+  public $success = false;
 
   protected $rules = [
     'content' => 'required|min:30',
@@ -34,6 +35,8 @@ class AddCommentBox extends Component
 
     $this->content = "";
     $this->postButtonDisabled = false;
+    $this->success = true;
     session()->flash('comment_added', 'Comment successfully added.');
+    $this->emit('commentAdded', $this->articleId);
   }
 }

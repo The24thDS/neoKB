@@ -60,6 +60,7 @@
         </sidebar>
         <livewire:add-comment-box :articleId="$article->id" />
       </div>
+      <livewire:comments-list :article="$article" />
     </div>
   </div>
   <link href="{{ asset('css/prism.css') }}" rel="stylesheet" />

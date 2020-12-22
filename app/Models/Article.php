@@ -57,6 +57,11 @@ class Article extends Model
     return $this->upvotes() - $this->downvotes();
   }
 
+  public function comments()
+  {
+    return $this->hasMany(Comment::class);
+  }
+
   public function upvote()
   {
     $user = auth()->user();
