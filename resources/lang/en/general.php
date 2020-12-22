@@ -23,6 +23,7 @@ return [
     'no' => 'No',
     'yes' => 'Yes',
     'date' => 'Date',
+    'version' => 'Version',
   ],
 
   'text' => [
@@ -37,5 +38,6 @@ return [
   'model' => [
     'App\\Models\\User' => 'User',
     'App\\Models\\Domain' => 'Domain',
+    'App\\Models\\Article' => 'Article',
   ],
 ];
