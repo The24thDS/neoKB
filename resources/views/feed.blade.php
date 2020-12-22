@@ -17,6 +17,9 @@
       <a href="{{ route('article.create') }}">
         <x-jet-button>New article</x-jet-button>
       </a>
+      <a href="{{ route('feed') }}">
+        <x-jet-secondary-button>Clear filters</x-jet-secondary-button>
+      </a>
 
       <div class="w-full mb-6 grid grid-cols-3 gap-6">
         @forelse ($articles as $article)
@@ -38,8 +41,8 @@
             </article>
             <div class="self-end mt-2 w-full">
               @foreach ($article->domains as $domain)
-                <a
-                  class="p-1 px-2 bg-blue-300 rounded opacity-75 hover:opacity-100 cursor-pointer text-xs">{{ $domain->name }}</a>
+                <a href="{{ "?domain=$domain->name" }}"
+                  class="p-1 px-2 leading-7 bg-blue-300 rounded opacity-75 hover:opacity-100 cursor-pointer text-xs">{{ $domain->name }}</a>
               @endforeach
             </div>
           </div>

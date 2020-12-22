@@ -16,7 +16,12 @@ class ArticleController extends Controller
    */
   public function index()
   {
-    $articles = Article::latest()->paginate(6);
+    if (request('domain')) {
+      $articles = Domain::where('name', request('domain'))->firstOrFail()->articles()->latest()->paginate(6);
+      $articles->appends(['domain' => request('domain')]);
+    } else {
+      $articles = Article::latest()->paginate(6);
+    }
 
     return view('feed', compact('articles'));
   }

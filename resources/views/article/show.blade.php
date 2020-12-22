@@ -53,8 +53,8 @@
               Domains
             </h3>
             @foreach ($article->domains as $domain)
-              <a
-                class="p-1 px-2 bg-blue-300 rounded opacity-75 hover:opacity-100 cursor-pointer text-xs">{{ $domain->name }}</a>
+              <a href="{{ route('feed') . "?domain=$domain->name" }}"
+                class="p-1 px-2 leading-7 bg-blue-300 rounded opacity-75 hover:opacity-100 cursor-pointer text-xs">{{ $domain->name }}</a>
             @endforeach
           </div>
         </sidebar>
