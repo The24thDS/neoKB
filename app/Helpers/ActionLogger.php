@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\ActionLog;
+use App\Models\Article;
 use Illuminate\Support\Str;
 use Illuminate\Support\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -84,48 +85,55 @@ class ActionLogger
     $afterAttributes = $this->model->getChanges();
     $beforeAttributes = [];
 
-    foreach ($afterAttributes as $key => $value) {
-      $tempVal = $this->model->getOriginal($key);
+    if (get_class($this->model) === Article::class) {
+      $versionURL = route('article.version', ['article' => $this->model, 'version' => $this->model->edits->count() + 1]);
+      $liveURL = route('article.show', ['article' => $this->model->id]);
+      $beforeAttributes = ['version' => "<a class='underline hover:no-underline' href='$versionURL'>$versionURL</a>"];
+      $afterAttributes = ['version' => "<a class='underline hover:no-underline' href='$liveURL'>$liveURL</a>"];
+    } else {
+      foreach ($afterAttributes as $key => $value) {
+        $tempVal = $this->model->getOriginal($key);
 
-      if (in_array($key, $this->dateFields)) {
-        $tempVal = Carbon::parse($tempVal)->format('Y-m-d');
-        $value = Carbon::parse($value)->format('Y-m-d');
-      }
+        if (in_array($key, $this->dateFields)) {
+          $tempVal = Carbon::parse($tempVal)->format('Y-m-d');
+          $value = Carbon::parse($value)->format('Y-m-d');
+        }
 
-      if (in_array($key, $this->excludedFields) || $tempVal == $value) {
-        unset($afterAttributes[$key]);
-        continue;
-      }
-
-      if ($key === 'is_admin') {
-        $beforeAttributes[$key] = $tempVal == 1 ? __('general.field.yes') : __('general.field.no');
-        $afterAttributes[$key] = $value == 1 ? __('general.field.yes') : __('general.field.no');
-        continue;
-      }
-
-      if (Str::of($key)->endsWith('_id')) {
-        $model = Str::of($key)->replace('_id', '')->camel()->ucfirst()->__toString();
-
-        if (file_exists(base_path("app/$model.php"))) {
-          $instance = "App\\$model";
-
-          $modelKey = Str::of($model)->snake()->__toString();
-          $beforeAttributes[$modelKey] = ($tempVal == null) ? __('general.field.no') : $instance::whereId($tempVal)->withTrashed()->first()->getLogActionModelName();
+        if (in_array($key, $this->excludedFields) || $tempVal == $value) {
           unset($afterAttributes[$key]);
-          $afterAttributes[$modelKey] = ($value == null) ? __('general.field.no') : $instance::whereId($value)->withTrashed()->first()->getLogActionModelName();
+          continue;
+        }
+
+        if ($key === 'is_admin') {
+          $beforeAttributes[$key] = $tempVal == 1 ? __('general.field.yes') : __('general.field.no');
+          $afterAttributes[$key] = $value == 1 ? __('general.field.yes') : __('general.field.no');
+          continue;
+        }
+
+        if (Str::of($key)->endsWith('_id')) {
+          $model = Str::of($key)->replace('_id', '')->camel()->ucfirst()->__toString();
+
+          if (file_exists(base_path("app/$model.php"))) {
+            $instance = "App\\$model";
+
+            $modelKey = Str::of($model)->snake()->__toString();
+            $beforeAttributes[$modelKey] = ($tempVal == null) ? __('general.field.no') : $instance::whereId($tempVal)->first()->getLogActionModelName();
+            unset($afterAttributes[$key]);
+            $afterAttributes[$modelKey] = ($value == null) ? __('general.field.no') : $instance::whereId($value)->first()->getLogActionModelName();
+
+            continue;
+          }
+        }
+
+        if (in_array($key, $this->dateFields)) {
+          $afterAttributes[$key] = Carbon::parse($value)->formatLocalized('%d %B %Y');
+          $beforeAttributes[$key] = Carbon::parse($tempVal)->formatLocalized('%d %B %Y');
 
           continue;
         }
+
+        $beforeAttributes[$key] = ($tempVal == null) ? __('general.field.no') : $tempVal;
       }
-
-      if (in_array($key, $this->dateFields)) {
-        $afterAttributes[$key] = Carbon::parse($value)->formatLocalized('%d %B %Y');
-        $beforeAttributes[$key] = Carbon::parse($tempVal)->formatLocalized('%d %B %Y');
-
-        continue;
-      }
-
-      $beforeAttributes[$key] = ($tempVal == null) ? __('general.field.no') : $tempVal;
     }
 
     return [$beforeAttributes, $afterAttributes];

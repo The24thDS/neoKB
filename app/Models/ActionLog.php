@@ -27,7 +27,7 @@ class ActionLog extends Model
 
   public function model()
   {
-    return $this->morphTo(__FUNCTION__, 'model_type', 'model_id')->withTrashed();
+    return $this->morphTo(__FUNCTION__, 'model_type', 'model_id');
   }
 
   public function scopeFiltered(Builder $query)

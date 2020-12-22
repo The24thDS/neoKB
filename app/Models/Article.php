@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -10,7 +11,7 @@ use Illuminate\Support\Str;
 
 class Article extends Model
 {
-  use HasFactory, Searchable;
+  use HasFactory, Searchable, Loggable;
 
   protected $fillable = [
     'title', 'content', 'domain_id',
@@ -124,5 +125,10 @@ class Article extends Model
     })->toArray();
 
     return $array;
+  }
+
+  public function getLogActionModelName()
+  {
+    return $this->title;
   }
 }

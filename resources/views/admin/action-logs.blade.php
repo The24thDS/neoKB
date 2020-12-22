@@ -33,14 +33,14 @@
                 <td class="p-4">
                   <ul>
                     @foreach (((array) json_decode($actionLog->before_attributes)) as $key => $value)
-                      <li>{{ __("general.field.$key") }}: {{ $value }}</li>
+                      <li>{{ __("general.field.$key") }}: {!! $value !!}</li>
                     @endforeach
                   </ul>
                 </td>
                 <td class="p-4">
                   <ul>
                     @foreach (((array) json_decode($actionLog->after_attributes)) as $key => $value)
-                      <li>{{ __("general.field.$key") }}: {{ $value }}</li>
+                      <li>{{ __("general.field.$key") }}: {!! $value !!}</li>
                     @endforeach
                   </ul>
                 </td>
