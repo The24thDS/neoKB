@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 class ActionLogger
 {
   private $excludedFields = [
-    'password', 'updated_at', 'remember_token', 'is_other_material',
+    'password', 'updated_at', 'remember_token',
   ];
 
   private $dateFields = [
@@ -70,6 +70,7 @@ class ActionLogger
       'type' => $this->actionType,
       'model_id' => $this->model->id,
       'model_type' => $this->modelType,
+      'model_name' => $this->model->getLogActionModelName(),
       'before_attributes' => json_encode($beforeAttributes),
       'after_attributes' => json_encode($afterAttributes),
     ]);

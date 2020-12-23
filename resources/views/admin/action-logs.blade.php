@@ -28,7 +28,7 @@
                 <td class="p-4">{{ $actionLog->created_at->setTimezone('Europe/Bucharest') }}</td>
                 <td class="p-4">{{ $actionLog->user->name ?? 'Application' }}</td>
                 <td class="p-4">{{ $actionLog->type }} {{ __("general.model.$actionLog->model_type") }}
-                  {{ $actionLog->model ? $actionLog->model->getLogActionModelName() : 'error' }}
+                  {{ $actionLog->model_name }}
                 </td>
                 <td class="p-4">
                   <ul>
