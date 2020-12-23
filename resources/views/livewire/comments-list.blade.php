@@ -7,7 +7,8 @@
         <div class="flex items-center justify-around border-r pr-2">
           <img src="{{ $comment->author->profile_photo_url }}" class="rounded-full w-20" />
           <div class="flex flex-col items-center justify-center">
-            <a href="" class="font-semibold">{{ $comment->author->name }}</a>
+            <a href="{{ route('user.show', ['user' => $comment->author->id]) }}"
+              class="font-semibold">{{ $comment->author->name }}</a>
             <p class="text-sm">{{ $comment->created_at->format('j F Y') }}</p>
             <p class="text-sm">{{ $comment->created_at->format('h:m A') }}</p>
           </div>

@@ -25,7 +25,7 @@
           {!! $article->getCleanContent() !!}
         </article>
         <sidebar class="border-l pl-6 relative h-full">
-          <a class="author cursor-pointer">
+          <a href="{{ route('user.show', ['user' => $article->author->id]) }}" class="author">
             <img src="{{ $article->author->profile_photo_url }}"
               class="rounded w-2/3 block mx-auto shadow hover:shadow-none transition duration-200 ease-in-out" />
             <p class="author_name text-center text-lg font-semibold">{{ $article->author->name }}</p>
