@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Builder;
 class ActionLog extends Model
 {
   protected $fillable = [
-    'model_id', 'model_type', 'user_id', 'type', 'before_attributes', 'after_attributes',
+    'model_id', 'model_type', 'model_name', 'user_id', 'type', 'before_attributes', 'after_attributes',
   ];
 
   protected $with = [
