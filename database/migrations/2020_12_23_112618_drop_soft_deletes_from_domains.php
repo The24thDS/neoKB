@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddSoftDeletesToDomains extends Migration
+class DropSoftDeletesFromDomains extends Migration
 {
   /**
    * Run the migrations.
@@ -14,7 +14,7 @@ class AddSoftDeletesToDomains extends Migration
   public function up()
   {
     Schema::table('domains', function (Blueprint $table) {
-      $table->softDeletes();
+      $table->dropSoftDeletes();
     });
   }
 
@@ -26,7 +26,7 @@ class AddSoftDeletesToDomains extends Migration
   public function down()
   {
     Schema::table('domains', function (Blueprint $table) {
-      $table->dropSoftDeletes();
+      $table->softDeletes();
     });
   }
 }

@@ -11,7 +11,6 @@ class Domain extends Model
 {
   use HasFactory;
   use Loggable;
-  use SoftDeletes;
 
   protected $fillable = [
     'name'
