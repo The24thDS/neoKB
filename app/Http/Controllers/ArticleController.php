@@ -6,6 +6,7 @@ use App\Http\Requests\CreateArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
 use App\Models\Article;
 use App\Models\Domain;
+use Illuminate\Support\Facades\URL;
 
 class ArticleController extends Controller
 {
@@ -16,11 +17,22 @@ class ArticleController extends Controller
    */
   public function index()
   {
+    $articles = Article::latest();
+
     if (request('domain')) {
-      $articles = Domain::where('name', request('domain'))->firstOrFail()->articles()->latest()->paginate(6);
+      $articles = Domain::where('name', request('domain'))->firstOrFail()->articles()->latest();
+    }
+    if (request('user')) {
+      $articles = $articles->where('user_id', request('user'));
+    }
+
+    $articles = $articles->paginate(6);
+
+    if (request('domain')) {
       $articles->appends(['domain' => request('domain')]);
-    } else {
-      $articles = Article::latest()->paginate(6);
+    }
+    if (request('user')) {
+      $articles->appends(['user' => request('user')]);
     }
 
     return view('feed', compact('articles'));
