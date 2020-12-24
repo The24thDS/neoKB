@@ -15,8 +15,8 @@ class CreateArticlesUpvotes extends Migration
   {
     Schema::create('articles_upvotes', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('article_id')->references('id')->on('articles');
-      $table->foreignId('user_id')->references('id')->on('users');
+      $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade');
+      $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
       $table->timestamps();
       $table->unique(array('article_id', 'user_id'));
     });
