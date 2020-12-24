@@ -31,6 +31,6 @@ class ArticlePolicy
    */
   public function delete(User $user, Article $article)
   {
-    return $article->author->is($user);
+    return $article->author->is($user) || auth()->user()->is_admin;
   }
 }

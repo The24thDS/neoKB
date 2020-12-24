@@ -15,7 +15,7 @@ class CreateTableArticlesDomains extends Migration
   {
     Schema::create('articles_domains', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('article_id')->references('id')->on('articles');
+      $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade');
       $table->foreignId('domain_id')->references('id')->on('domains');
       $table->timestamps();
     });

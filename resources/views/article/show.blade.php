@@ -19,6 +19,15 @@
           </x-jet-button>
         </a>
       @endcan
+      @can('delete', $article)
+        <form action="{{ route('article.destroy', ['article' => $article->id]) }}" method="POST" class="inline-block">
+          @csrf
+          @method('DELETE')
+          <x-jet-secondary-button class="mb-4" type="submit">
+            Delete article
+          </x-jet-secondary-button>
+        </form>
+      @endcan
 
       <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-4 grid grid-cols-5">
         <article class="col-span-4 leading-7 px-4">

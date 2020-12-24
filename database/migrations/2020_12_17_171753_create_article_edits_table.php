@@ -15,7 +15,7 @@ class CreateArticleEditsTable extends Migration
   {
     Schema::create('article_edits', function (Blueprint $table) {
       $table->id();
-      $table->foreignId('article_id')->references('id')->on('articles');
+      $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade');
       $table->string('title');
       $table->text('content');
       $table->timestamps();
