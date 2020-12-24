@@ -61,17 +61,6 @@ class User extends Authenticatable
     'profile_photo_url',
   ];
 
-  public static function boot()
-  {
-    parent::boot();
-
-    static::saved(function ($model) {
-      $model->articles->filter(function ($item) {
-        return $item->shouldBeSearchable();
-      })->searchable();
-    });
-  }
-
   public function articles()
   {
     return $this->hasMany(Article::class);

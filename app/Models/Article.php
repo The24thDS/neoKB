@@ -72,7 +72,6 @@ class Article extends Model
     } else {
       $this->upvotedBy()->detach($user->id);
     }
-    $this->searchable();
   }
 
   public function downvote()
@@ -84,7 +83,6 @@ class Article extends Model
     } else {
       $this->downvotedBy()->detach($user->id);
     }
-    $this->searchable();
   }
 
   public function upvotedByUser(User $user)
@@ -118,8 +116,6 @@ class Article extends Model
     $array = $article->toArray();
     $array = $article->transform($array);
 
-    $array['author_name'] = $article->author->name;
-    $array['rating'] = $article->rating();
     $array['domains'] = $article->domains->map(function ($data) {
       return $data['name'];
     })->toArray();

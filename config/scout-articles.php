@@ -16,7 +16,7 @@ return [
     |
     */
 
-  'searchableAttributes' => ['title', 'content', 'author_name', 'domains'],
+  'searchableAttributes' => ['title', 'content', 'domains'],
 
   /*
     |--------------------------------------------------------------------------
@@ -32,7 +32,7 @@ return [
     |
     */
 
-  'customRanking' => ['desc(created_at)', 'desc(updated_at)', 'desc(rating)'],
+  'customRanking' => ['desc(created_at)', 'desc(updated_at)'],
 
   /*
     |--------------------------------------------------------------------------
