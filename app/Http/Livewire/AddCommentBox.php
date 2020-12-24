@@ -23,9 +23,8 @@ class AddCommentBox extends Component
 
   public function save()
   {
-    $this->postButtonDisabled = true;
-
     $this->validate($this->rules);
+    $this->postButtonDisabled = true;
 
     Comment::create([
       'article_id' => $this->articleId,
