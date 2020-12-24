@@ -26,7 +26,7 @@
 
     <!-- Page Heading -->
     <header class="bg-white shadow relative">
-      <a href="{{ url()->previous() }}" class="absolute left-10 text-4xl my-auto top-3">&lsaquo;</a>
+      <a href="javascript:history.back()" class="absolute left-10 text-4xl my-auto top-3">&lsaquo;</a>
       <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 flex justify-between">
         {{ $header }}
       </div>
