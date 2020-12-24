@@ -16,7 +16,7 @@ class CreateArticlesDownvotes extends Migration
     Schema::create('articles_downvotes', function (Blueprint $table) {
       $table->id();
       $table->foreignId('article_id')->references('id')->on('articles')->onDelete('cascade');
-      $table->foreignId('user_id')->references('id')->on('users');
+      $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
       $table->timestamps();
       $table->unique(array('article_id', 'user_id'));
     });
