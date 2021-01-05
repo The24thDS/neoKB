@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\Loggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -16,6 +17,7 @@ class User extends Authenticatable
   use HasProfilePhoto;
   use Notifiable;
   use TwoFactorAuthenticatable;
+  use Loggable;
 
   /**
    * The attributes that are mass assignable.
@@ -26,6 +28,7 @@ class User extends Authenticatable
     'name',
     'email',
     'password',
+    'is_admin',
   ];
 
   /**
@@ -58,8 +61,28 @@ class User extends Authenticatable
     'profile_photo_url',
   ];
 
+  public function articles()
+  {
+    return $this->hasMany(Article::class);
+  }
+
+  public function upvotedArticles()
+  {
+    return $this->belongsToMany(Article::class, 'articles_upvotes');
+  }
+
+  public function downvotedArticles()
+  {
+    return $this->belongsToMany(Article::class, 'articles_downvotes');
+  }
+
   protected function defaultProfilePhotoUrl()
   {
     return 'https://robohash.org/' . urlencode($this->name) . '?bgset=bg2';
+  }
+
+  public function getLogActionModelName(): string
+  {
+    return $this->name;
   }
 }

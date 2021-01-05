@@ -1,5 +1,10 @@
 <?php
 
+use App\Http\Controllers\ActionLogController;
+use App\Http\Controllers\ArticleController;
+use App\Http\Controllers\DomainController;
+use App\Http\Controllers\UsersController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +20,19 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-  return Redirect::to('dashboard');
+  return Redirect::to('feed');
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-  return view('dashboard');
-})->name('dashboard');
+Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+  Route::get('/feed', [ArticleController::class, 'index'])->name('feed');
+  Route::resource('/article', ArticleController::class);
+  Route::get('/article/{article}/version/{version}', fn (Article $article, int $version) => view('article.version', ['article' => $article, 'articleEdit' => $article->edits->get($version - 1)]))->name('article.version');
+  Route::get('/user/{user}', [UsersController::class, 'show'])->name('user.show');
+});
+
+Route::prefix('admin')->name('admin.')->middleware('admin')->group(function () {
+  Route::get('users', [UsersController::class, 'index'])->name('users');
+  Route::get('domains', [DomainController::class, 'index'])->name('domains');
+  Route::post('domains', [DomainController::class, 'store'])->name('domains');
+  Route::get('action-logs', [ActionLogController::class, 'index'])->name('action-logs');
+});
